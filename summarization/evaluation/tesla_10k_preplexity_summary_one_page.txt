@@ -1,0 +1,38 @@
+Okay, here's a one-page summary of the Tesla 2023 10-K report:
+
+## Tesla, Inc. Form 10-K Summary (Fiscal Year Ended December 31, 2023)
+
+Tesla, Inc. is a company focused on accelerating the world's transition to sustainable energy. They design, develop, manufacture, sell, and lease high-performance fully electric vehicles and energy generation and storage systems, while also offering related services.
+
+**Business Overview:**
+
+Tesla sells its products directly to customers and is expanding its global infrastructure through showrooms, service centers, mobile service, body shops, Supercharger stations, and Destination Chargers. The company emphasizes performance, styling, safety, and aims to lower the cost of ownership through manufacturing efficiencies and tailored financial services.
+
+**Segments:**
+
+Tesla operates through two reportable segments:
+
+*   **Automotive:** Encompasses the design, development, manufacturing, sales, and leasing of electric vehicles, sales of automotive regulatory credits, used vehicle sales, after-sales services, body shop and parts, paid Supercharging, vehicle insurance revenue, and retail merchandise.
+*   **Energy Generation and Storage:** Includes the design, manufacture, installation, sales, and leasing of solar energy generation and energy storage products, related services, and sales of solar energy system incentives.
+
+**Products and Services:**
+
+*   **Automotive:** Tesla currently manufactures the Model 3, Model Y, Model S, Model X, and Cybertruck. They also have the Tesla Semi for commercial use. Tesla is developing Full Self-Driving (FSD) capabilities and advancements in battery cell technology.
+*   **Energy Storage:** Powerwall for homes and small commercial facilities and Megapack for larger commercial, industrial, utility, and energy generation applications. Tesla also develops software for remote control and optimization of energy storage systems.
+*   **Solar Energy:** Retrofit solar energy systems, Solar Roof (integrated glass roof tiles with energy generation).
+
+**Technology:**
+
+*   **Automotive:**
+    *   **Battery and Powertrain:** Tesla designs its powertrain systems to be adaptable, efficient, reliable, and cost-effective. They have dual and tri-motor vehicles for all-wheel drive and increased performance. Tesla also conducts extensive R&D for battery cells and has developed a proprietary lithium-ion battery cell and improved manufacturing processes.
+    *   **Vehicle Control and Infotainment Software:** Tesla develops most of its software internally and updates vehicles over-the-air.
+    *   **Self-Driving Development and Artificial Intelligence:** Tesla develops technologies for self-driving vehicles using vision-based technologies. The FSD Computer runs neural networks, and Tesla is developing additional hardware for data processing. They offer advanced driver assist systems (Autopilot and FSD Capability) and plan to establish an autonomous Tesla ride-hailing network. Tesla is applying AI learnings to robotics with Optimus, a humanoid robot.
+*   **Energy Generation and Storage:** Tesla leverages expertise in battery technology for energy storage products, focusing on cost reduction and performance improvement.
+
+**Forward-Looking Statements:** The report contains forward-looking statements that involve risks and uncertainties, including those related to supply chain constraints, competition, future operations, and demand. Actual results could differ materially from these statements.
+
+Citations:
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/52690905/2b2b66db-6907-4ff1-a171-9ea21299f4d8/tsla-20231231-gen.pdf
+
+---
+Answer from Perplexity: pplx.ai/share
