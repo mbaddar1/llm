@@ -38,6 +38,16 @@ A paper that uses FactSumm
 https://medium.com/@bavalpreetsinghh/rag-and-llm-evaluation-metrics-9cfe004d5bc3
 Value Produced by this script
 
+10. Unsupervised Reference-Free Summary Quality Evaluation via
+Contrastive Learning
+https://aclanthology.org/2020.emnlp-main.294.pdf
+
+11. Word Mover Distance
+https://medium.com/@nihitextra/word-movers-distance-for-text-similarity-7492aeca71b0
+
+12. SUPERT: Unsupervised Multi-Document Summarization Evaluation & Generation
+https://github.com/danieldeutsch/SUPERT
+TODO
 1. Try different backend LLMs for summarization
 2. Try different Prompt and Prompt Chains and systematically select the best using different
     objective summarization scores
