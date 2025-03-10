@@ -1,0 +1,113 @@
+Evaluating text summarization without a human-generated reference summary requires **reference-free** (intrinsic) evaluation metrics. Here are some key approaches:
+
+### **1. Information Retention & Faithfulness**
+- **QA-Based Evaluation** – Check if the summary can correctly answer key questions about the source text.
+- **FactScore / QAFactEval** – Uses a question-answering model to check factual consistency.
+- **Summac** – Measures factual consistency using natural language inference (NLI).
+
+### **2. Semantic Similarity & Relevance**
+- **BERTScore** – Computes similarity between original and summarized text using contextual embeddings.
+- **MoverScore** – Measures semantic similarity using Word Mover’s Distance on deep embeddings.
+- **TextRank / LexRank Overlap** – Checks if important sentences in the source appear in the summary.
+
+### **3. Compression & Redundancy**
+- **Compression Ratio** – Measures how much the summary condenses the original text.
+- **Repetition / Relevance Score** – Detects redundant phrases using n-gram overlap or model-based similarity.
+
+### **4. Coherence & Fluency**
+- **Perplexity (from a Language Model)** – Evaluates how fluent the summary is.
+- **Entity Grid Models** – Measures coherence based on how entities appear across sentences.
+
+## **Tools & Libraries for Implementation**
+
+### **1. Information Retention & Faithfulness**
+- **[QAFactEval](https://github.com/salesforce/QAFactEval)**
+  - Install: `pip install qafacteval`
+
+- **[Summac](https://github.com/tingofurro/summac)**
+  - Install: `pip install summac`
+  - Example usage:
+    ```python
+    from summac.model_summac import SummaCZS
+    model = SummaCZS(granularity="sentence", model_name="vitc")
+    score = model.score(["source text"], ["summary"])
+    print(score)
+    ```
+
+### **2. Semantic Similarity & Relevance**
+- **[BERTScore](https://github.com/Tiiiger/bert_score)**
+  - Install: `pip install bert-score`
+  - Example usage:
+    ```python
+    from bert_score import score
+    P, R, F1 = score(["summary"], ["source text"], lang="en", model_type="microsoft/deberta-xlarge-mnli")
+    print(F1)
+    ```
+
+- **[MoverScore](https://github.com/AIPHES/emnlp19-moverscore)**
+  - Install: `pip install moverscore`
+  - Example usage:
+    ```python
+    from moverscore import word_mover_score
+    score = word_mover_score(["source text"], ["summary"])
+    print(score)
+    ```
+
+### **3. Compression & Redundancy**
+- **N-gram Overlap & Repetition Check (NLTK, SpaCy)**
+  - Example using NLTK:
+    ```python
+    from nltk.util import ngrams
+    def get_ngram_overlap(source, summary, n=2):
+        source_ngrams = set(ngrams(source.split(), n))
+        summary_ngrams = set(ngrams(summary.split(), n))
+        return len(summary_ngrams & source_ngrams) / len(summary_ngrams)
+    ```
+
+- **Sentence Similarity (TextRank, LexRank)**
+  - **TextRank (Gensim)**:
+    ```python
+    from gensim.summarization import summarize
+    summary = summarize("source text")
+    print(summary)
+    ```
+
+### **4. Coherence & Fluency**
+- **[GPT-4 / Llama2 Perplexity Score (Hugging Face)](https://huggingface.co/docs/transformers/main/en/perplexity)**
+  - Example using `transformers`:
+    ```python
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    import torch
+
+    model_name = "gpt2"
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+    def compute_perplexity(text):
+        encodings = tokenizer(text, return_tensors="pt")
+        with torch.no_grad():
+            outputs = model(**encodings, labels=encodings["input_ids"])
+        return torch.exp(outputs.loss).item()
+
+    print(compute_perplexity("summary text"))
+    ```
+
+........................
+
+
+1. Embedding-Based Methods
+Cosine Similarity: Measures the cosine of the angle between vector representations of the original text and summary.
+BERTScore: Computes similarity using BERT embeddings, considering contextual meaning.
+Sentence Mover’s Similarity (SMS): Extends Word Mover’s Distance using sentence embeddings to measure semantic similarity.
+2. Information-Based Methods
+Compression Ratio: Measures how much the summary compresses the original text.
+Coverage: Assesses how much of the original content is retained in the summary.
+Repetition Score: Checks redundancy by measuring repeated words/phrases.
+3. N-gram Based Methods
+ROUGE-L Recall (against original text): Measures how much of the original text’s longest common subsequence appears in the summary.
+Coverage & Density: Examines how extractive or abstractive a summary is based on n-gram overlap.
+4. Model-Based Methods
+QAEval (Question-Answering Evaluation): Generates and answers questions from the original text and summary to compare factual consistency.
+SUPERT: Uses sentence embeddings to compare the summary with important sentences from the original text.
+AlignScore: Leverages alignment techniques to measure semantic fidelity.
+Would you like suggestions on tools or implementations for any of these?

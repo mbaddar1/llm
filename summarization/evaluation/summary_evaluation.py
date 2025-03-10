@@ -1,12 +1,12 @@
 from rouge_score import rouge_scorer
 if __name__ == "__main__":
-    with open("tesla_10k_chatgpt_summary_one_page.txt", "r") as f:
+    with open("../data/tesla_10k_chatgpt_summary_one_page.txt", "r") as f:
         generated_summary_gpt = f.read()
-    with open("tesla_10K_gemini_summarization_one_page.txt", "r") as f:
+    with open("../data/tesla_10K_gemini_summarization_one_page.txt", "r") as f:
         generated_summary_gemini = f.read()
-    with open("tesla_10k_perplexity_summary_one_page.txt") as f:
+    with open("../data/tesla_10k_perplexity_summary_one_page.txt") as f:
         reference_summary_perplexity = f.read()
-    with open("tsla-20231231-gen-10K-report.txt") as f:
+    with open("../data/tsla-20231231-gen-10K-report.txt") as f:
         original_text = f.read()
     scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2'], use_stemmer=True)
     print(f"Length of original text = {len(original_text)}")
