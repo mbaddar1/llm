@@ -51,75 +51,64 @@ TODO
 1. Try different backend LLMs for summarization
 2. Try different Prompt and Prompt Chains and systematically select the best using different
     objective summarization scores
-3. Use a human reviewer to review the summarization and summary selection process
-4. Provide clarity and confidence to the summary with different scores
+3. Use a human reviewer to review the summarization and summaries selection process
+4. Provide clarity and confidence to the summaries with different scores
 5. Control the coverage/precision/length trade-off
 """
 import argparse
-from openai import OpenAI
+from typing import List
+
 from loguru import logger
 from summac.model_summac import SummaCZS, SummaCConv
+from datetime import datetime
+import numpy as np
+from bert_score import BERTScorer
 
-SUPPORTED_MODELS = ["openai"]
-parser = argparse.ArgumentParser()
-parser.add_argument("--model", type=str, choices=["openai"], required=False, default="openai")
-parser.add_argument("--input-text-file", type=str, required=True)
-parser.add_argument("--openai-key", type=str, required=False)
-args = parser.parse_args()
-
-
-def calculate_summarization_score(summary: str, source_text: str, method: str) -> float:
+def calculate_summarization_score(summaries: List[str], source_texts: str, method: List[str]) -> float:
+    assert len(summaries) == len(source_texts)
+    N = len(summaries)
+    logger.info(f"# chr for original_text = {[len(source_texts[i]) for i in range(N)]}")
+    logger.info(f"# chr for summaries = {[len(summaries[i]) for i in range(N)]}")
+    compression_ratios = [int(np.round(float(len(source_texts[i]) - len(summaries[i])) / len(source_texts[i]) * 100))
+                          for i in range(N)]
+    logger.info(f"Compression ratio = {compression_ratios}%")
     if method == "summacconv":
         model_conv = SummaCConv(models=["vitc"], bins='percentile', granularity="sentence",
                                 nli_labels="e",
                                 device="cpu", start_file="default", agg="mean")
-        score_conv = model_conv.score([source_text], [summary])
+        score_conv = model_conv.score(source_texts, summaries)
         return score_conv
+    if method == "bert_score":
+        # BERTScore calculation
+        # Example texts
+        reference = "This is a reference text example."
+        candidate = "This is a candidate text example."
+        bert_scorer = BERTScorer(model_type='bert-base-uncased')
+        bert_score_val = bert_scorer.score(cands=[candidate], refs=[reference])
+        return bert_score_val
     else:
         raise ValueError(f"unknown method = {method}")
 
 
-def check_cmd_args(cmd_args):
-    if cmd_args.model == "openai" and args.openai_key is None:
-        raise ValueError("If model = openai a valid key must be provided")
-
-
-def process_with_open_ai(openai_client, text: str):
-    """
-
-    :param openai_client:
-    :param text:
-    :return:
-    """
-    openai_model_version = "gpt-4o"
-    logger.info(f"Generating summary with openai model : {openai_model_version}")
-    content1 = (f"summarize the following text\n\n"
-                f"{text}")
-    completion = openai_client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": content1,
-            }
-        ],
-        model=openai_model_version,
-    )
-    response_text = completion.choices[0].message.content
-    logger.info(f"Response Message\n"
-                f"{response_text}")
-    summarization_scoring_method = "summacconv"
-    logger.info(f"Calculating summary score using method = {summarization_scoring_method}")
-    ret = calculate_summarization_score(summary=response_text,
-                                                        source_text=text[:100000], method="summacconv")
-    logger.info(f"Summarization scoring method = {summarization_scoring_method} "
-                f"and score = {ret["score"]}")
-
-
 if __name__ == "__main__":
-    logger.info(f"Model type = {args.model}")
-    check_cmd_args(cmd_args=args)
-    with open(args.input_text_file, "r") as f:
-        text = f.read()
-    if args.model == "openai":
-        client = OpenAI(api_key=args.openai_key)
-        process_with_open_ai(openai_client=client, text=text)
+    # summary_text_file = "/home/mbaddar/Documents/mbaddar/bf/mbaddar_github_repo/llm/summarization/data/tesla_10K_gemini_summarization_one_page.txt"
+    # original_text_file = "/home/mbaddar/Documents/mbaddar/bf/mbaddar_github_repo/llm/summarization/data/tsla-20231231-gen-10K-report.txt"
+    # with open(summary_text_file, "r") as f:
+    #     summary = f.read()
+    # with open(original_text_file, "r") as f:
+    #     original_text = f.read()
+    original_text = "This is a reference text example."
+    summary = "This is a candidate text example."
+    method = "bert_score"
+    logger.info(f"Summarizing with method = {method}")
+    start_time = datetime.now()
+    score = calculate_summarization_score(summaries=[summary], source_texts=[original_text], method=method)
+    end_time = datetime.now()
+    logger.info(f"Score = {score}, calculation time = {(end_time - start_time).seconds} seconds")
+    # logger.info(f"Model type = {args.model}")
+    # check_cmd_args(cmd_args=args)
+    # with open(args.input_text_file, "r") as f:
+    #     text = f.read()
+    # if args.model == "openai":
+    #     client = OpenAI(api_key=args.openai_key)
+    #     process_with_open_ai(openai_client=client, text=text)

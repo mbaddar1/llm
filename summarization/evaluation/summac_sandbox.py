@@ -36,7 +36,7 @@ def sandbox_method2(full_document_path: str, summary_document_path: str):
     logger.info(f"num-char full text = {len(full_text)}")
     with open(summary_document_path, "r") as f:
         summary_text = f.read()
-    logger.info(f"num-char summary = {len(summary_text)}")
+    logger.info(f"num-char summaries = {len(summary_text)}")
     compression_ratio = np.round(float(len(summary_text) - len(full_text)) / len(full_text), 4)
     logger.info(f"char compression-ratio = {compression_ratio}")
     score_conv = model_conv.score([full_text], [summary_text])
@@ -45,9 +45,9 @@ def sandbox_method2(full_document_path: str, summary_document_path: str):
 
 def calculate_summary_score(full_text: str, summary: str, method: str) -> dict:
     logger.info(f"numchar fulltext = {len(full_text)}")
-    logger.info(f"numchar summary = {len(summary)}")
+    logger.info(f"numchar summaries = {len(summary)}")
     compression_ratio = np.round(float(len(summary) - len(full_text)) / len(full_text), 4)
-    logger.info(f"Calculating summary score with method = {method}")
+    logger.info(f"Calculating summaries score with method = {method}")
     logger.info(f"Compression ratio = {compression_ratio}")
     if method == "summacconv":
         start_time = datetime.now()
@@ -57,7 +57,7 @@ def calculate_summary_score(full_text: str, summary: str, method: str) -> dict:
         score = model_conv.score([full_text], [summary])
         end_time = datetime.now()
     else:
-        raise ValueError(f"unsupported summary score method = {method}")
+        raise ValueError(f"unsupported summaries score method = {method}")
     logger.info(
         f"Score calculated by method : {method} = {score}, calculated = {(end_time - start_time).seconds} seconds")
     return score
