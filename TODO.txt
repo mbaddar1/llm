@@ -1,0 +1,8 @@
+1. WMD for summarization
+https://www.geeksforgeeks.org/word-movers-distance-wmd-in-nlp/
+Efficient and Effective Single-Document Summarizations and A Word-Embedding Measurement of Quality
+https://arxiv.org/abs/1710.00284
+Quote
+"""
+To evaluate the quality of summaries without human-generated benchmarks, we define a measure called WESM based on word-embedding using Word Mover's Distance. We show that the orderings of the ROUGE and WESM scores of our algorithms are highly comparable, suggesting that WESM may serve as a viable alternative for measuring the quality of a summary.
+"""

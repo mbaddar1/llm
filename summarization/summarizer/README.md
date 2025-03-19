@@ -10,4 +10,11 @@ https://arxiv.org/abs/2310.03414
 5. Financial-Statement-Summarization
 Applying Transformers for Summarizing Financial Statement Data
 https://github.com/OGK0/Financial-Statement-Summarization/tree/main 
-6. 
+6. NIFTY Financial News Headlines Dataset
+https://arxiv.org/abs/2405.09747 
+7. Reference-free Summarization Evaluation via Semantic Correlation and Compression Ratio
+https://aclanthology.org/2022.naacl-main.153/ 
+8. Fill in the BLANC: Human-free quality estimation of document summaries
+https://aclanthology.org/2020.eval4nlp-1.2/
+9. Efficient and Effective Single-Document Summarizations and A Word-Embedding Measurement of Quality
+https://arxiv.org/abs/1710.00284

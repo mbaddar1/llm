@@ -81,10 +81,10 @@ def calculate_summarization_score(summaries: List[str], source_texts: str, metho
     if method == "bert_score":
         # BERTScore calculation
         # Example texts
-        reference = "This is a reference text example."
-        candidate = "This is a candidate text example."
+        # reference = "This is a reference text example."
+        # candidate = "This is a candidate text example."
         bert_scorer = BERTScorer(model_type='bert-base-uncased')
-        bert_score_val = bert_scorer.score(cands=[candidate], refs=[reference])
+        bert_score_val = bert_scorer.score(cands=summaries, refs=source_texts)
         return bert_score_val
     else:
         raise ValueError(f"unknown method = {method}")
